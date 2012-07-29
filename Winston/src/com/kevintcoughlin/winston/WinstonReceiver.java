@@ -14,7 +14,8 @@ import android.util.Log;
 public class WinstonReceiver extends BroadcastReceiver { 
 	double latitude, longitude;
 
-    @Override
+	@Override
+	// When the Winston Receiver receives an intent, get values and call AsyncTask
     public void onReceive(final Context context, final Intent calledIntent)
     {
         Log.d("LOC_RECEIVER", "Location RECEIVED!");

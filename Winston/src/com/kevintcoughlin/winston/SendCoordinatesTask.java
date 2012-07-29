@@ -55,7 +55,8 @@ class SendCoordinatesTask extends AsyncTask<String, Integer, String> {
 		        Log.d("LOC_SERVICE", "Sending POST data: "+nameValuePairs);
 		        
 		        // Execute HTTP Post Request
-		        HttpResponse response = client.execute(postMethod);
+		        @SuppressWarnings("unused")
+				HttpResponse response = client.execute(postMethod);
 		        
 			} catch (Exception e) {
 				e.printStackTrace();
