@@ -1,0 +1,49 @@
+<div id="map_canvas"></div>
+<!-- Google Maps API -->
+<script>
+  // Adding 500 Data Points
+  var map, pointarray, heatmap;
+  var markers = [];
+  var heat_data = [];
+
+  function initialize() {
+    map = new google.maps.Map(document.getElementById('map_canvas'), {
+      zoom: 10,
+      center: new google.maps.LatLng(40.12532, -74.5012),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    pointArray = new google.maps.MVCArray(heat_data);
+
+    heatmap = new google.maps.visualization.HeatmapLayer({
+      data: pointArray,
+      radius: 20
+    });
+    heatmap.setMap(map);
+    addMarker();
+  }
+
+  // Toggle heat map overlay
+  function toggleHeatmap() {
+    heatmap.setMap(heatmap.getMap() ? null : map);
+  }
+
+
+  function loadScript() {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCLG0GmS_AISzp7QpOGbc3ssikMInZbyCA&sensor=false&libraries=visualization&' +
+        'callback=initialize';
+    document.body.appendChild(script);
+  }
+
+  // Places Google Map markers on Map at locations
+  function addMarker(){
+    <% @coordinates.each do |coordinate| %>
+    heat_data.push(new google.maps.LatLng(<%= coordinate.latitude.to_f %>, <%= coordinate.longitude.to_f %>));
+    <% end %>
+  }
+
+  window.onload = loadScript;
+</script>
+

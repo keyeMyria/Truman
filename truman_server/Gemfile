@@ -1,0 +1,44 @@
+source 'https://rubygems.org'
+
+gem 'rails', '3.2.8'
+
+# MongoDB
+gem "mongo_mapper"
+gem "bson_ext"
+
+# JSON Support
+gem 'json'
+
+# Twilio
+gem 'twilio-ruby'
+
+# Pagination
+
+# Automatic API Documentation
+gem 'apipie-rails'
+gem 'redcarpet'
+
+# Javascript support mainly for Bootstrap
+gem 'therubyracer', '~> 0.11.0beta5'
+group :libv8 do
+ gem 'libv8', "~> 3.11.8"
+end
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  # Twitter Bootstrap Gem
+  gem "twitter-bootstrap-rails"
+  gem 'less-rails-bootstrap'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '>= 1.0.3'
+end
+
+gem 'jquery-rails'
+
+# To use ActiveModel has_secure_password
+# gem 'bcrypt-ruby', '~> 3.0.0'
+
+# To use Jbuilder templates for JSON
+# gem 'jbuilder'
+
