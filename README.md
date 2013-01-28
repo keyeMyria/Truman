@@ -1,4 +1,4 @@
-Winston
+Truman
 =======
 
-Android App that tracks my GPS location and posts it to winston.kevintcoughlin.com a node.js server
+Android App that tracks my GPS location and posts it to http://truman.herokuapp.com/ a Rails server
