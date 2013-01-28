@@ -1,0 +1,13 @@
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="Truman Preferences">
+
+        <EditTextPreference
+                android:key="email"
+                android:title="Email"
+                android:summary="Email used by Truman"
+                android:dialogTitle="Email used by Truman" />
+    </PreferenceCategory>
+</PreferenceScreen>

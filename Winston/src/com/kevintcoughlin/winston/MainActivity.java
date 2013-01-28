@@ -17,26 +17,32 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.commonsware.cwac.locpoll.LocationPoller;
 import com.kevintcoughlin.winston.receivers.LocationReceiver;
 
 public class MainActivity extends SherlockActivity {
-	private static final int PERIOD = 900000;  				// 15 Minutes
-	private PendingIntent pi = null;
-	private AlarmManager mgr = null;
-	private static Context context; 						// Activity Context
-	private ToggleButton tb;
+	private static final int 	PERIOD 	= 900000;  				// 3 Minutes
+	private PendingIntent 		pi 		= null;
+	private AlarmManager 		mgr 	= null;
+	private static Context 		context; 						
+	private ToggleButton 		tb;
 	private NotificationManager mNotificationManager;
-
+	
+	@SuppressLint("NewApi")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		MainActivity.context = getApplicationContext();
+		
+		this.getActionBar().setDisplayShowHomeEnabled(false);
+		
 		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		tb = (ToggleButton) findViewById(R.id.toggleService);
-
+		
 		// Attach ToggleButton Click Listener
+		tb = (ToggleButton) findViewById(R.id.toggleService);
 		tb.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v){
@@ -79,13 +85,10 @@ public class MainActivity extends SherlockActivity {
 		Intent i = new Intent(MainActivity.this, LocationPoller.class);
 
 		// Pass Location Receiver in intent
-		i.putExtra(LocationPoller.EXTRA_INTENT,
-				new Intent(MainActivity.this, LocationReceiver.class));
+		i.putExtra(LocationPoller.EXTRA_INTENT, new Intent(MainActivity.this, LocationReceiver.class));
 
 		// Pass GPS via intent
-		i.putExtra(LocationPoller.EXTRA_PROVIDER,
-				LocationManager.GPS_PROVIDER);
-
+		i.putExtra(LocationPoller.EXTRA_PROVIDER, LocationManager.GPS_PROVIDER);
 		pi = PendingIntent.getBroadcast(MainActivity.this, 1337, i, 0);
 
 		// Repeat intent as defined in PERIOD variable
@@ -101,6 +104,22 @@ public class MainActivity extends SherlockActivity {
 	}
 
 	/**
+	 * On MENU button press
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    return super.onCreateOptionsMenu(menu);
+	}
+	
+	/**
+	 * On MENU item press
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return super.onOptionsItemSelected(item);
+	}
+	
+	/**
 	 * Show Persistant Notification in Notification Bar
 	 */
 	@SuppressLint("NewApi")
@@ -115,19 +134,17 @@ public class MainActivity extends SherlockActivity {
 
 		// Build Truman Notification
 		Notification notification = new Notification.Builder(context)
-		.setContentTitle("Truman")
-		.setContentText("Location Poller is running")
-		.setSmallIcon(R.drawable.gps)
-		.setOngoing(true)
-		.setContentIntent(mainactivity_intent)
-		.setPriority(Notification.PRIORITY_MAX)
-		//.addAction( 0, "Start", null)  	// Notification Start Button
-		//.addAction( 0, "Stop", null) 		// Notification Stop Button
-		.build();
+			.setContentTitle("Truman")
+			.setContentText("Location Poller is running")
+			.setSmallIcon(R.drawable.gps)
+			.setOngoing(true)
+			.setContentIntent(mainactivity_intent)
+			.setPriority(Notification.PRIORITY_MAX)
+			.build();
 
 		mNotificationManager.notify(1, notification);
 	}
-
+	
 	/**
 	 * Return Activity's Context
 	 * @return
